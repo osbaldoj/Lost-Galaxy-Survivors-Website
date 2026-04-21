@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Lost Galaxy: Survivors is a fast-paced sci-fi top-down survival shooter about alien swarms, tactical upgrades, replayable runs, and a free itch.io playtest."
+    >
+    <meta name="theme-color" content="#0B0E13">
+    <meta property="og:title" content="Lost Galaxy: Survivors">
+    <meta
+      property="og:description"
+      content="Survive alien swarms, wishlist Lost Galaxy: Survivors on Steam, and try the free itch.io playtest."
+    >
+    <meta property="og:image" content="assets/screenshot-01.jpg">
+    <title>Lost Galaxy: Survivors</title>
+    <link rel="preload" href="assets/screenshot-01.jpg" as="image">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1YSBHK52GT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1YSBHK52GT');
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Lost Galaxy: Survivors home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span data-text="title">Lost Galaxy: Survivors</span>
+      </a>
+      <nav class="nav-links" aria-label="Site sections" data-render="nav"></nav>
+      <a class="header-cta" aria-label="Wishlist on Steam" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
+        <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
+        <span>Wishlist</span>
+      </a>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <img class="hero-image" src="assets/screenshot-01.jpg" alt="Lost Galaxy: Survivors combat screenshot" fetchpriority="high">
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="section-shell hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow" data-text="eyebrow"></p>
+            <div class="hero-callouts" data-render="heroCallouts"></div>
+            <h1 id="hero-title" data-render="heroTitle"></h1>
+            <p class="hero-lede" data-text="tagline"></p>
+            <div class="cta-row">
+              <a class="button button-primary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
+                <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
+                <span>Wishlist on Steam</span>
+              </a>
+              <a class="button button-secondary button-itch" data-link="itch" href="https://jorge-osbaldo.itch.io/lost-galaxy-survivors" target="_blank" rel="noreferrer">
+                <span>Playtest on itch.io</span>
+              </a>
+              <a class="button button-secondary" href="#trailer">Watch trailer</a>
+            </div>
+          </div>
+          <div class="hero-panel" aria-label="Steam status" data-render="stats"></div>
+        </div>
+      </section>
+
+      <section class="intro section-band" id="overview" aria-labelledby="overview-title">
+        <div class="section-shell split-layout">
+          <div>
+            <p class="eyebrow">Survival under pressure</p>
+            <h2 id="overview-title">Every run asks for a better answer.</h2>
+          </div>
+          <div class="intro-copy">
+            <p data-text="shortDescription"></p>
+            <p data-text="overview"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="media-feature" id="trailer" aria-labelledby="trailer-title">
+        <div class="section-shell media-grid">
+          <div class="media-copy">
+            <p class="eyebrow">Demo trailer</p>
+            <h2 id="trailer-title">Alien pressure, tactical upgrades, and one more run.</h2>
+            <p data-text="trailerCopy"></p>
+            <a class="button button-primary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
+              <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
+              <span>Open Steam page</span>
+            </a>
+          </div>
+          <a class="trailer-card" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer" aria-label="Watch the trailer on Steam">
+            <img src="assets/trailer-poster.jpg" alt="Lost Galaxy: Survivors trailer poster">
+            <span class="play-badge" aria-hidden="true">Play</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section-band" id="features" aria-labelledby="features-title">
+        <div class="section-shell">
+          <div class="section-heading">
+            <p class="eyebrow">Key features</p>
+            <h2 id="features-title">Build power while the swarm closes in.</h2>
+          </div>
+          <div class="feature-grid" data-render="features"></div>
+        </div>
+      </section>
+
+      <section class="loop-section" aria-labelledby="loop-title">
+        <div class="section-shell split-layout">
+          <div>
+            <p class="eyebrow">Core loop</p>
+            <h2 id="loop-title">Move, choose, deploy, survive.</h2>
+          </div>
+          <ol class="loop-list" data-render="loop"></ol>
+        </div>
+      </section>
+
+      <section class="gallery-section section-band" id="screenshots" aria-labelledby="screenshots-title">
+        <div class="section-shell">
+          <div class="section-heading">
+            <p class="eyebrow">Screenshots</p>
+            <h2 id="screenshots-title">Hostile worlds get loud fast.</h2>
+          </div>
+          <figure class="gallery-viewer">
+            <img data-gallery="featured" src="assets/screenshot-01.jpg" alt="Lost Galaxy: Survivors gameplay screenshot">
+            <figcaption data-gallery="caption">Relentless alien waves push every build choice.</figcaption>
+          </figure>
+          <div class="gallery-strip" data-render="gallery" aria-label="Screenshot selector"></div>
+        </div>
+      </section>
+
+      <section class="details-section" id="details" aria-labelledby="details-title">
+        <div class="section-shell details-grid">
+          <div>
+            <p class="eyebrow">Steam details</p>
+            <h2 id="details-title">Built for fast sessions and replayable pressure.</h2>
+          </div>
+          <div class="detail-columns">
+            <div class="detail-block">
+              <h3>Platforms</h3>
+              <ul data-render="platforms"></ul>
+            </div>
+            <div class="detail-block">
+              <h3>Steam features</h3>
+              <ul data-render="steamFeatures"></ul>
+            </div>
+            <div class="detail-block">
+              <h3>Languages</h3>
+              <ul data-render="languages"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="final-cta" id="wishlist" aria-labelledby="wishlist-title">
+        <div class="section-shell final-cta-layout">
+          <div>
+            <p class="eyebrow">Coming soon</p>
+            <h2 id="wishlist-title">Wishlist now and get notified at launch.</h2>
+          </div>
+          <a class="button button-primary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
+            <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
+            <span>Wishlist on Steam</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell footer-layout">
+        <p>
+          <span data-text="title">Lost Galaxy: Survivors</span>
+          <span>by</span>
+          <span data-text="studio">After The Singularity Games</span>
+        </p>
+        <a data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">Steam</a>
+      </div>
+    </footer>
+
+    <script src="game-data.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

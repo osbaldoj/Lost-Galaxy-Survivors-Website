@@ -1,0 +1,264 @@
+const data = window.gameData;
+
+const select = (selector, root = document) => root.querySelector(selector);
+const selectAll = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+const createElement = (tagName, className, text) => {
+  const element = document.createElement(tagName);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  return element;
+};
+
+const createIconElement = (iconName, label) => {
+  if (iconName === "steam-asset") {
+    const image = document.createElement("img");
+    image.className = "icon-image";
+    image.src = "assets/steam-icon.png";
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+    return image;
+  }
+
+  const icon = createElement("span", `icon icon-${iconName}`);
+  icon.setAttribute("aria-hidden", "true");
+  if (label) icon.setAttribute("title", label);
+  return icon;
+};
+
+const setTextContent = () => {
+  selectAll("[data-text]").forEach((element) => {
+    const key = element.dataset.text;
+    if (data[key]) element.textContent = data[key];
+  });
+};
+
+const setLinks = () => {
+  const links = data.links || {};
+  selectAll("[data-link]").forEach((element) => {
+    const key = element.dataset.link;
+    if (links[key]) element.href = links[key];
+  });
+};
+
+const renderNav = () => {
+  const container = select("[data-render='nav']");
+  data.nav.forEach((item) => {
+    const link = createElement("a", "", item.label);
+    link.href = item.target;
+    link.dataset.navTarget = item.target.slice(1);
+    container.append(link);
+  });
+};
+
+const renderHeroPanel = () => {
+  const container = select("[data-render='stats']");
+  const panel = createElement("div", "hero-module");
+
+  panel.append(createElement("span", "hero-module-eyebrow", data.heroPanel.eyebrow));
+  panel.append(createElement("h2", "hero-module-title", data.heroPanel.title));
+  panel.append(createElement("p", "hero-module-copy", data.heroPanel.copy));
+
+  if (data.playtest) {
+    const playtest = createElement("div", "hero-live-card");
+    playtest.append(createElement("span", "hero-live-card-eyebrow", data.playtest.panelEyebrow));
+    playtest.append(createElement("strong", "hero-live-card-title", data.playtest.panelTitle));
+    playtest.append(createElement("p", "hero-live-card-copy", data.playtest.panelText));
+
+    const playtestLink = createElement("a", "hero-live-card-link", data.playtest.ctaLabel);
+    playtestLink.href = data.links.itch;
+    playtestLink.target = "_blank";
+    playtestLink.rel = "noreferrer";
+    playtest.append(playtestLink);
+
+    panel.append(playtest);
+  }
+
+  const statusList = createElement("div", "hero-status-list");
+  data.heroPanel.rows.forEach((row) => {
+    const item = createElement("article", "hero-status-row");
+    item.append(createElement("span", "stat-label", row.label));
+
+    const value = createElement("div", "hero-status-value");
+    if (row.icon) value.append(createIconElement(row.icon, row.label));
+    value.append(createElement("strong", "", row.value));
+    item.append(value);
+    statusList.append(item);
+  });
+  panel.append(statusList);
+
+  const footer = createElement("div", "hero-store-block");
+
+  const storeIcons = createElement("div", "hero-store-icons");
+  data.heroPanel.store.platforms.forEach((platform) => {
+    const item = createElement("div", "hero-store-item");
+    item.append(createIconElement(platform.icon, platform.label));
+    item.append(createElement("span", "", platform.label));
+    storeIcons.append(item);
+  });
+  footer.append(storeIcons);
+
+  const badgeRow = createElement("div", "hero-badge-row");
+  data.heroPanel.badges.forEach((badge) => {
+    badgeRow.append(createElement("span", "hero-badge", badge));
+  });
+  footer.append(badgeRow);
+
+  panel.append(footer);
+
+  container.append(panel);
+};
+
+const renderHeroCallouts = () => {
+  const container = select("[data-render='heroCallouts']");
+  if (!container || !data.playtest) return;
+
+  const banner = createElement("div", "hero-live-banner");
+  banner.append(createElement("span", "hero-live-pill", "Live"));
+
+  const copy = createElement("div", "hero-live-copy-block");
+  copy.append(createElement("strong", "hero-live-title", data.playtest.banner));
+  copy.append(createElement("p", "hero-live-detail", data.playtest.detail));
+  banner.append(copy);
+
+  const link = createElement("a", "hero-live-inline-link", data.playtest.ctaLabel);
+  link.href = data.links.itch;
+  link.target = "_blank";
+  link.rel = "noreferrer";
+  banner.append(link);
+
+  container.append(banner);
+};
+
+const renderHeroTitle = () => {
+  const container = select("[data-render='heroTitle']");
+  data.heroTitleLines.forEach((line) => {
+    container.append(createElement("span", "", line));
+  });
+};
+
+const renderFeatures = () => {
+  const container = select("[data-render='features']");
+  data.features.forEach((feature, index) => {
+    const article = createElement("article", "feature-card");
+    article.append(createElement("span", "feature-index", String(index + 1).padStart(2, "0")));
+    article.append(createElement("h3", "", feature.title));
+    article.append(createElement("p", "", feature.text));
+    container.append(article);
+  });
+};
+
+const renderLoop = () => {
+  const container = select("[data-render='loop']");
+  data.loop.forEach((step) => {
+    const item = createElement("li", "loop-item");
+    item.append(createElement("h3", "", step.title));
+    item.append(createElement("p", "", step.text));
+    container.append(item);
+  });
+};
+
+const setFeaturedScreenshot = (screenshot) => {
+  const image = select("[data-gallery='featured']");
+  const caption = select("[data-gallery='caption']");
+  image.classList.add("is-swapping");
+
+  const finishSwap = () => {
+    image.classList.remove("is-swapping");
+    image.removeEventListener("load", finishSwap);
+  };
+
+  image.addEventListener("load", finishSwap);
+  image.src = screenshot.src;
+  image.alt = screenshot.alt;
+  caption.textContent = screenshot.caption;
+
+  if (image.complete) {
+    requestAnimationFrame(finishSwap);
+  }
+};
+
+const renderGallery = () => {
+  const container = select("[data-render='gallery']");
+  data.screenshots.forEach((screenshot, index) => {
+    const button = createElement("button", "gallery-thumb");
+    button.type = "button";
+    button.setAttribute("aria-label", `Show screenshot ${index + 1}`);
+    if (index === 0) button.classList.add("is-active");
+
+    const image = document.createElement("img");
+    image.src = screenshot.src;
+    image.alt = "";
+    image.loading = "lazy";
+    button.append(image);
+
+    button.addEventListener("click", () => {
+      setFeaturedScreenshot(screenshot);
+      selectAll(".gallery-thumb").forEach((thumb) => thumb.classList.remove("is-active"));
+      button.classList.add("is-active");
+    });
+
+    container.append(button);
+  });
+};
+
+const renderTextList = (selector, items) => {
+  const container = select(selector);
+  items.forEach((item) => {
+    container.append(createElement("li", "", item));
+  });
+};
+
+const setActiveNav = () => {
+  const links = selectAll("[data-nav-target]");
+  const sections = links
+    .map((link) => select(`#${link.dataset.navTarget}`))
+    .filter(Boolean);
+
+  const activate = (id) => {
+    links.forEach((link) => {
+      link.classList.toggle("is-active", link.dataset.navTarget === id);
+    });
+  };
+
+  if (location.hash) {
+    activate(location.hash.slice(1));
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (visible) activate(visible.target.id);
+    },
+    {
+      rootMargin: "-35% 0px -45% 0px",
+      threshold: [0.18, 0.32, 0.48]
+    }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+  window.addEventListener("hashchange", () => {
+    if (location.hash) activate(location.hash.slice(1));
+  });
+};
+
+const init = () => {
+  setTextContent();
+  setLinks();
+  renderHeroCallouts();
+  renderHeroTitle();
+  renderNav();
+  renderHeroPanel();
+  renderFeatures();
+  renderLoop();
+  renderGallery();
+  renderTextList("[data-render='platforms']", data.platforms);
+  renderTextList("[data-render='steamFeatures']", data.steamFeatures);
+  renderTextList("[data-render='languages']", data.languages);
+  setActiveNav();
+};
+
+init();
