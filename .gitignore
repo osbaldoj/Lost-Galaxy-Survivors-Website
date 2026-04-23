@@ -40,6 +40,7 @@ pids
 # Backup files
 *~
 *.bak
+*.backup
 
 # Original PNG backups (optimized versions are in assets/)
 original_pngs/
