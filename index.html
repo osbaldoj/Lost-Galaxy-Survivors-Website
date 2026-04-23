@@ -64,7 +64,7 @@
                 <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
                 <span>Wishlist on Steam</span>
               </a>
-              <a class="button button-tertiary" href="#trailer">Watch trailer</a>
+              <a class="button button-tertiary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">Watch trailer</a>
             </div>
             <p class="cta-urgency" data-text="urgencyText"></p>
           </div>
@@ -89,24 +89,6 @@
         </div>
       </section>
 
-      <section class="media-feature" id="trailer" aria-labelledby="trailer-title">
-        <div class="section-shell media-grid">
-          <div class="media-copy">
-            <p class="eyebrow">Demo trailer</p>
-            <h2 id="trailer-title">Alien pressure, tactical upgrades, and one more run.</h2>
-            <p data-text="trailerCopy"></p>
-            <a class="button button-secondary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
-              <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
-              <span>Open Steam page</span>
-            </a>
-          </div>
-          <a class="trailer-card" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer" aria-label="Watch the trailer on Steam">
-            <img src="assets/trailer-poster.jpg" alt="Lost Galaxy: Survivors trailer poster">
-            <span class="play-badge" aria-hidden="true">Play</span>
-          </a>
-        </div>
-      </section>
-
       <section class="section-band" id="features" aria-labelledby="features-title">
         <div class="section-shell">
           <div class="section-heading">
@@ -117,68 +99,11 @@
         </div>
       </section>
 
-      <section class="why-play-section" aria-labelledby="why-play-title">
-        <div class="section-shell split-layout why-play-layout">
-          <div>
-            <p class="eyebrow">Why this game?</p>
-            <h2 id="why-play-title" data-text="whyPlay.title"></h2>
-          </div>
-          <ul class="why-play-list" data-render="whyPlay"></ul>
-        </div>
-      </section>
-
-      <section class="loop-section" aria-labelledby="loop-title">
-        <div class="section-shell split-layout">
-          <div>
-            <p class="eyebrow">Core loop</p>
-            <h2 id="loop-title">Move, choose, deploy, survive.</h2>
-          </div>
-          <ol class="loop-list" data-render="loop"></ol>
-        </div>
-      </section>
-
-      <section class="gallery-section section-band" id="screenshots" aria-labelledby="screenshots-title">
-        <div class="section-shell">
-          <div class="section-heading">
-            <p class="eyebrow">Screenshots</p>
-            <h2 id="screenshots-title">Hostile worlds get loud fast.</h2>
-          </div>
-          <figure class="gallery-viewer" tabindex="0" aria-label="Game screenshot gallery. Use arrow keys or swipe to navigate.">
-            <img data-gallery="featured" src="assets/screenshot-01.jpg" alt="Lost Galaxy: Survivors gameplay screenshot">
-            <figcaption data-gallery="caption">Relentless alien waves push every build choice.</figcaption>
-          </figure>
-          <div class="gallery-strip" data-render="gallery" aria-label="Screenshot selector"></div>
-        </div>
-      </section>
-
-      <section class="details-section" id="details" aria-labelledby="details-title">
-        <div class="section-shell details-grid">
-          <div>
-            <p class="eyebrow">Steam details</p>
-            <h2 id="details-title">Built for fast sessions and replayable pressure.</h2>
-          </div>
-          <div class="detail-columns">
-            <div class="detail-block">
-              <h3>Platforms</h3>
-              <ul data-render="platforms"></ul>
-            </div>
-            <div class="detail-block">
-              <h3>Steam features</h3>
-              <ul data-render="steamFeatures"></ul>
-            </div>
-            <div class="detail-block">
-              <h3>Languages</h3>
-              <ul data-render="languages"></ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="final-cta" id="wishlist" aria-labelledby="wishlist-title">
+      <section class="final-cta" id="play-now" aria-labelledby="play-now-title">
         <div class="section-shell final-cta-layout">
           <div>
             <p class="eyebrow" data-text="finalCta.eyebrow"></p>
-            <h2 id="wishlist-title" data-text="finalCta.title"></h2>
+            <h2 id="play-now-title" data-text="finalCta.title"></h2>
             <p class="final-cta-copy" data-text="finalCta.text"></p>
           </div>
           <div class="cta-row final-cta-actions">
@@ -190,6 +115,7 @@
               <span>Wishlist on Steam</span>
             </a>
           </div>
+          <div class="press-quotes" data-render="pressQuotes"></div>
         </div>
       </section>
     </main>
@@ -206,6 +132,8 @@
           <span data-text="studio">After The Singularity Games</span>
         </p>
         <a data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">Steam</a>
+        <a data-link="twitter" href="https://x.com/Jorge_Osbaldo" target="_blank" rel="noreferrer">Twitter</a>
+        <a data-link="discord" href="#" target="_blank" rel="noreferrer">Discord</a>
       </div>
     </footer>
 

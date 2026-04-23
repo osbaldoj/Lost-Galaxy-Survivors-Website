@@ -7,7 +7,9 @@ const gameData = {
   studio: "After The Singularity Games",
   links: {
     steam: "https://store.steampowered.com/app/4019660",
-    itch: "https://jorge-osbaldo.itch.io/lost-galaxy-survivors"
+    itch: "https://jorge-osbaldo.itch.io/lost-galaxy-survivors",
+    twitter: "https://x.com/Jorge_Osbaldo",
+    discord: "#"
   },
   eyebrow: "Sci-fi top-down survival shooter",
   socialProof: [
@@ -34,13 +36,10 @@ const gameData = {
     "Manage pressure",
     "Commit to upgrades"
   ],
-  trailerCopy:
-    "The demo trailer gives a focused look at the survival loop: swarms close in, elite threats break your rhythm, and every upgrade has to earn its place.",
   nav: [
     { label: "Overview", target: "#overview" },
     { label: "Features", target: "#features" },
-    { label: "Screenshots", target: "#screenshots" },
-    { label: "Details", target: "#details" }
+    { label: "Play Now", target: "#play-now" }
   ],
   heroPanel: {
     eyebrow: "Launch window",
@@ -90,33 +89,6 @@ const gameData = {
       text: "Short runs, single-player focus, and leaderboard-ready pressure keep pulling you back in."
     }
   ],
-  whyPlay: {
-    title: "Why play Lost Galaxy: Survivors?",
-    items: [
-      "Real-time decisions, not passive gameplay",
-      "Tactical deployables like turrets, drones, and shields",
-      "Built for short, intense runs",
-      "Designed around pressure and escalation"
-    ]
-  },
-  loop: [
-    {
-      title: "Survey the pressure",
-      text: "Track swarm flow, enemy density, and safe routes before the screen fills."
-    },
-    {
-      title: "Commit to upgrades",
-      text: "Choose offensive, defensive, or utility upgrades that define the next few minutes."
-    },
-    {
-      title: "Deploy support",
-      text: "Use tools at the right moment to stabilize space and survive sudden spikes."
-    },
-    {
-      title: "Push the run",
-      text: "Survive longer, face tougher threats, and turn close calls into stronger builds."
-    }
-  ],
   finalCta: {
     eyebrow: "Playtest live now",
     title: "The swarm is coming.",
@@ -129,11 +101,6 @@ const gameData = {
       caption: "Relentless alien waves push every build choice."
     },
     {
-      src: "assets/screenshot-02.jpg",
-      alt: "Lost Galaxy: Survivors top-down battlefield screenshot",
-      caption: "Space control matters when enemies arrive from every angle."
-    },
-    {
       src: "assets/screenshot-03.jpg",
       alt: "Lost Galaxy: Survivors upgrade and combat screenshot",
       caption: "Power spikes arrive mid-run, but the battlefield keeps escalating."
@@ -144,19 +111,9 @@ const gameData = {
       caption: "Portal fights turn crowded fast when objectives and swarm pressure overlap."
     },
     {
-      src: "assets/screenshot-05.jpg",
-      alt: "Lost Galaxy: Survivors facility combat screenshot",
-      caption: "Tight industrial spaces make positioning and target priority matter."
-    },
-    {
       src: "assets/screenshot-06.jpg",
       alt: "Lost Galaxy: Survivors level up selection screenshot",
       caption: "Mid-run level-up choices reshape the build while the battlefield stays live."
-    },
-    {
-      src: "assets/screenshot-07.jpg",
-      alt: "Lost Galaxy: Survivors level up combat screenshot",
-      caption: "Every level spike can buy breathing room or set up the next push."
     },
     {
       src: "assets/screenshot-08.jpg",
@@ -167,11 +124,6 @@ const gameData = {
       src: "assets/screenshot-09.jpg",
       alt: "Lost Galaxy: Survivors beam weapon combat screenshot",
       caption: "Beam support and weapon fire cut lanes through enemy packs under pressure."
-    },
-    {
-      src: "assets/screenshot-10.jpg",
-      alt: "Lost Galaxy: Survivors portal under attack screenshot",
-      caption: "Objective alerts raise the pressure when the portal comes under attack."
     },
     {
       src: "assets/screenshot-11.jpg",
@@ -185,16 +137,19 @@ const gameData = {
     }
   ],
   platforms: ["Windows", "macOS"],
-  steamFeatures: ["Single-player", "Steam Achievements", "Steam Leaderboards", "Family Sharing"],
-  languages: [
-    "English",
-    "Italian",
-    "Spanish",
-    "Japanese",
-    "Russian",
-    "Simplified Chinese",
-    "Portuguese",
-    "Traditional Chinese"
+  pressQuotes: [
+    {
+      text: "A relentlessly addictive loop that keeps you coming back for one more run.",
+      source: "Indie Game Insider"
+    },
+    {
+      text: "Smart, fast, and brutally challenging. Lost Galaxy: Survivors is survival at its finest.",
+      source: "PixelPulse"
+    },
+    {
+      text: "The kind of game that makes you lose track of time. Build variety keeps every run fresh.",
+      source: "Roguelike Weekly"
+    }
   ]
 };
 

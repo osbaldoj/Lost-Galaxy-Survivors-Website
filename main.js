@@ -187,16 +187,6 @@ const renderFeatures = () => {
   });
 };
 
-const renderLoop = () => {
-  const container = select("[data-render='loop']");
-  data.loop.forEach((step) => {
-    const item = createElement("li", "loop-item");
-    item.append(createElement("h3", "", step.title));
-    item.append(createElement("p", "", step.text));
-    container.append(item);
-  });
-};
-
 const renderOverviewBullets = () => {
   const container = select("[data-render='overviewBullets']");
   if (!container) return;
@@ -247,68 +237,6 @@ const renderIntroScreenshot = () => {
   }, 4500);
 };
 
-const renderWhyPlay = () => {
-  const container = select("[data-render='whyPlay']");
-  if (!container) return;
-
-  data.whyPlay.items.forEach((item) => {
-    const bullet = createElement("li", "why-play-item");
-    bullet.append(createElement("strong", "why-play-label", item));
-    container.append(bullet);
-  });
-};
-
-const setFeaturedScreenshot = (screenshot) => {
-  const image = select("[data-gallery='featured']");
-  const caption = select("[data-gallery='caption']");
-  image.classList.add("is-swapping");
-
-  const finishSwap = () => {
-    image.classList.remove("is-swapping");
-    image.removeEventListener("load", finishSwap);
-  };
-
-  image.addEventListener("load", finishSwap);
-  image.src = screenshot.src;
-  image.alt = screenshot.alt;
-  caption.textContent = screenshot.caption;
-
-  if (image.complete) {
-    requestAnimationFrame(finishSwap);
-  }
-};
-
-const renderGallery = () => {
-  const container = select("[data-render='gallery']");
-  data.screenshots.forEach((screenshot, index) => {
-    const button = createElement("button", "gallery-thumb");
-    button.type = "button";
-    button.setAttribute("aria-label", `Show screenshot ${index + 1}`);
-    if (index === 0) button.classList.add("is-active");
-
-    const image = document.createElement("img");
-    image.src = screenshot.src;
-    image.alt = "";
-    image.loading = "lazy";
-    button.append(image);
-
-    button.addEventListener("click", () => {
-      setFeaturedScreenshot(screenshot);
-      selectAll(".gallery-thumb").forEach((thumb) => thumb.classList.remove("is-active"));
-      button.classList.add("is-active");
-    });
-
-    container.append(button);
-  });
-};
-
-const renderTextList = (selector, items) => {
-  const container = select(selector);
-  items.forEach((item) => {
-    container.append(createElement("li", "", item));
-  });
-};
-
 const setActiveNav = () => {
   const links = selectAll("[data-nav-target]");
   const sections = links
@@ -346,7 +274,7 @@ const setActiveNav = () => {
 };
 
 const setupScrollAnimations = () => {
-  const animateElements = selectAll(".feature-card, .loop-item");
+  const animateElements = selectAll(".feature-card");
   if (animateElements.length === 0) return;
 
   const observer = new IntersectionObserver((entries) => {
@@ -362,93 +290,6 @@ const setupScrollAnimations = () => {
   });
 
   animateElements.forEach((el) => observer.observe(el));
-};
-
-const setupGallerySwipe = () => {
-  const viewer = select(".gallery-viewer");
-  if (!viewer) return;
-
-  let touchStartX = 0;
-  let touchEndX = 0;
-  let isHorizontalSwipe = false;
-  const minSwipeDistance = 50;
-  const horizontalThreshold = 10;
-
-  const handleTouchStart = (e) => {
-    touchStartX = e.touches[0].clientX;
-    isHorizontalSwipe = false;
-  };
-
-  const handleTouchMove = (e) => {
-    if (isHorizontalSwipe) {
-      e.preventDefault();
-      return;
-    }
-
-    const touchX = e.touches[0].clientX;
-    const diffX = Math.abs(touchX - touchStartX);
-    const touchY = e.touches[0].clientY;
-    
-    if (diffX > horizontalThreshold) {
-      isHorizontalSwipe = true;
-      e.preventDefault();
-    }
-  };
-
-  const handleTouchEnd = (e) => {
-    touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-
-    if (Math.abs(diff) < minSwipeDistance) return;
-
-    const activeThumb = select(".gallery-thumb.is-active");
-    if (!activeThumb) return;
-
-    const thumbs = selectAll(".gallery-thumb");
-    const currentIndex = thumbs.indexOf(activeThumb);
-    let nextIndex;
-
-    if (diff > 0) {
-      nextIndex = currentIndex + 1;
-    } else {
-      nextIndex = currentIndex - 1;
-    }
-
-    if (nextIndex >= 0 && nextIndex < thumbs.length) {
-      thumbs[nextIndex].click();
-    }
-  };
-
-  viewer.addEventListener("touchstart", handleTouchStart, { passive: true });
-  viewer.addEventListener("touchmove", handleTouchMove, { passive: false });
-  viewer.addEventListener("touchend", handleTouchEnd, { passive: true });
-};
-
-const setupGalleryKeyboard = () => {
-  const handleKeyDown = (e) => {
-    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
-    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-
-    const activeThumb = select(".gallery-thumb.is-active");
-    if (!activeThumb) return;
-
-    const thumbs = selectAll(".gallery-thumb");
-    const currentIndex = thumbs.indexOf(activeThumb);
-    let nextIndex;
-
-    if (e.key === "ArrowRight") {
-      nextIndex = currentIndex + 1;
-    } else {
-      nextIndex = currentIndex - 1;
-    }
-
-    if (nextIndex >= 0 && nextIndex < thumbs.length) {
-      e.preventDefault();
-      thumbs[nextIndex].click();
-    }
-  };
-
-  window.addEventListener("keydown", handleKeyDown);
 };
 
 const setupHeroVideo = () => {
@@ -469,6 +310,20 @@ const setupHeroVideo = () => {
   }
 };
 
+const renderPressQuotes = () => {
+  const container = select("[data-render='pressQuotes']");
+  if (!container || !data.pressQuotes) return;
+
+  data.pressQuotes.forEach((quote) => {
+    const block = document.createElement("blockquote");
+    block.className = "press-quote";
+    const p = createElement("p", "", `"${quote.text}"`);
+    const cite = createElement("cite", "", `— ${quote.source}`);
+    block.append(p, cite);
+    container.append(block);
+  });
+};
+
 const init = () => {
   setTextContent();
   setLinks();
@@ -480,16 +335,9 @@ const init = () => {
   renderFeatures();
   renderOverviewBullets();
   renderIntroScreenshot();
-  renderWhyPlay();
-  renderLoop();
   setupScrollAnimations();
-  renderGallery();
-  setupGallerySwipe();
-  setupGalleryKeyboard();
   setupHeroVideo();
-  renderTextList("[data-render='platforms']", data.platforms);
-  renderTextList("[data-render='steamFeatures']", data.steamFeatures);
-  renderTextList("[data-render='languages']", data.languages);
+  renderPressQuotes();
   setActiveNav();
 };
 
