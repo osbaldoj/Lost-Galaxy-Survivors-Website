@@ -10,8 +10,13 @@ const gameData = {
     itch: "https://jorge-osbaldo.itch.io/lost-galaxy-survivors"
   },
   eyebrow: "Sci-fi top-down survival shooter",
+  socialProof: [
+    "Addictive and intense survival loop",
+    "One more run turns into ten"
+  ],
   tagline:
     "Survive relentless alien swarms, evolve your build in real time, and deploy tactical support tools before the battlefield consumes you.",
+  urgencyText: "Free playtest available now - limited content",
   playtest: {
     banner: "Free playtest available now",
     detail: "Temporary demo-like build with limited content. Play on itch.io and send feedback while the Steam launch keeps cooking.",
@@ -21,9 +26,14 @@ const gameData = {
     panelText: "Jump into the latest playtest, then share what felt good, rough, or missing so the full release lands stronger."
   },
   shortDescription:
-    "Survive relentless alien swarms in a fast-paced sci-fi top-down shooter. Level up, build powerful upgrades, deploy tactical support tools, and push your limits in an intense, replayable survival experience.",
+    "Survive relentless alien swarms in a fast-paced sci-fi top-down shooter built around escalating pressure and fast tactical choices.",
   overview:
     "Lost Galaxy: Survivors is about momentum, decisions, and pressure. Each run pushes you to control space, manage escalating threats, and commit to upgrades that change how you fight.",
+  overviewBullets: [
+    "Control space",
+    "Manage pressure",
+    "Commit to upgrades"
+  ],
   trailerCopy:
     "The demo trailer gives a focused look at the survival loop: swarms close in, elite threats break your rhythm, and every upgrade has to earn its place.",
   nav: [
@@ -36,7 +46,7 @@ const gameData = {
     eyebrow: "Launch window",
     title: "Coming soon",
     copy:
-      "Wishlist the full release on Steam, then try the temporary itch.io playtest on Windows or macOS.",
+      "Jump into the temporary itch.io playtest now, then wishlist the full release on Steam for launch.",
     rows: [
       { label: "Release", value: "Coming soon" },
       { label: "Genre", value: "Action roguelite", icon: "target" },
@@ -57,29 +67,38 @@ const gameData = {
   features: [
     {
       title: "Relentless alien waves",
-      text: "Enemy hordes grow stronger, faster, and harder to contain as each run escalates."
+      text: "The swarm thickens fast and punishes hesitation."
     },
     {
-      title: "Mid-run buildcraft",
-      text: "Level up in real time and shape your run through damage, fire rate, abilities, mobility, and utility."
+      title: "Build under fire",
+      text: "Pick upgrades in real time and feel the run change immediately."
     },
     {
-      title: "Tactical support tools",
-      text: "Use drones, turrets, shields, and deployables to hold ground when the swarm breaks formation."
+      title: "Deploy to survive",
+      text: "Drop drones, turrets, and shields when the screen starts collapsing."
     },
     {
-      title: "Elite enemies and nest zones",
-      text: "High-pressure threats can turn a stable run into a crisis if you lose control of the map."
+      title: "Pressure spikes harder",
+      text: "Elites and nest zones can turn control into panic in seconds."
     },
     {
-      title: "Replayable survival",
-      text: "Experiment with different builds, chase better decisions, and push a little further each time."
+      title: "Chase the next run",
+      text: "Every loss teaches a better answer for the next push."
     },
     {
-      title: "Steam-ready progression",
-      text: "Built around single-player runs with Steam achievements and leaderboards planned on the store page."
+      title: "Built for the grind",
+      text: "Short runs, single-player focus, and leaderboard-ready pressure keep pulling you back in."
     }
   ],
+  whyPlay: {
+    title: "Why play Lost Galaxy: Survivors?",
+    items: [
+      "Real-time decisions, not passive gameplay",
+      "Tactical deployables like turrets, drones, and shields",
+      "Built for short, intense runs",
+      "Designed around pressure and escalation"
+    ]
+  },
   loop: [
     {
       title: "Survey the pressure",
@@ -98,6 +117,11 @@ const gameData = {
       text: "Survive longer, face tougher threats, and turn close calls into stronger builds."
     }
   ],
+  finalCta: {
+    eyebrow: "Playtest live now",
+    title: "The swarm is coming.",
+    text: "Play now. Survive longer next time."
+  },
   screenshots: [
     {
       src: "assets/screenshot-01.jpg",

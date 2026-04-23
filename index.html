@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Lost Galaxy: Survivors is a fast-paced sci-fi top-down survival shooter about alien swarms, tactical upgrades, replayable runs, and a free itch.io playtest."
+      content="Lost Galaxy: Survivors is an intense sci-fi survival shooter built to drive Steam wishlists and free playtest clicks through short, overwhelming runs."
     >
     <meta name="theme-color" content="#0B0E13">
     <meta property="og:title" content="Lost Galaxy: Survivors">
     <meta
       property="og:description"
-      content="Survive alien swarms, wishlist Lost Galaxy: Survivors on Steam, and try the free itch.io playtest."
+      content="You will be overwhelmed. Wishlist Lost Galaxy: Survivors on Steam and jump into the free itch.io playtest."
     >
     <meta property="og:image" content="assets/screenshot-01.jpg">
     <title>Lost Galaxy: Survivors</title>
@@ -43,38 +43,48 @@
 
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/screenshot-01.jpg" aria-hidden="true">
+          <source src="assets/hero-video.mp4" type="video/mp4">
+        </video>
         <img class="hero-image" src="assets/screenshot-01.jpg" alt="Lost Galaxy: Survivors combat screenshot" fetchpriority="high">
         <div class="hero-shade" aria-hidden="true"></div>
         <div class="section-shell hero-layout">
           <div class="hero-copy">
             <p class="eyebrow" data-text="eyebrow"></p>
             <div class="hero-callouts" data-render="heroCallouts"></div>
+
             <h1 id="hero-title" data-render="heroTitle"></h1>
+            <div class="hero-proof" data-render="socialProof"></div>
             <p class="hero-lede" data-text="tagline"></p>
             <div class="cta-row">
-              <a class="button button-primary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
+              <a class="button button-primary button-playtest" data-link="itch" href="https://jorge-osbaldo.itch.io/lost-galaxy-survivors" target="_blank" rel="noreferrer">
+                <span>Playtest on itch.io</span>
+              </a>
+              <a class="button button-secondary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
                 <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
                 <span>Wishlist on Steam</span>
               </a>
-              <a class="button button-secondary button-itch" data-link="itch" href="https://jorge-osbaldo.itch.io/lost-galaxy-survivors" target="_blank" rel="noreferrer">
-                <span>Playtest on itch.io</span>
-              </a>
-              <a class="button button-secondary" href="#trailer">Watch trailer</a>
+              <a class="button button-tertiary" href="#trailer">Watch trailer</a>
             </div>
+            <p class="cta-urgency" data-text="urgencyText"></p>
           </div>
           <div class="hero-panel" aria-label="Steam status" data-render="stats"></div>
         </div>
       </section>
 
       <section class="intro section-band" id="overview" aria-labelledby="overview-title">
-        <div class="section-shell split-layout">
-          <div>
+        <div class="section-shell">
+          <div class="intro-header">
             <p class="eyebrow">Survival under pressure</p>
             <h2 id="overview-title">Every run asks for a better answer.</h2>
           </div>
-          <div class="intro-copy">
-            <p data-text="shortDescription"></p>
-            <p data-text="overview"></p>
+          <div class="intro-body split-media">
+            <figure class="intro-visual" data-render="introScreenshot"></figure>
+            <div class="intro-content">
+              <p data-text="shortDescription"></p>
+              <ul class="intro-features" data-render="overviewBullets"></ul>
+              <p data-text="overview"></p>
+            </div>
           </div>
         </div>
       </section>
@@ -85,7 +95,7 @@
             <p class="eyebrow">Demo trailer</p>
             <h2 id="trailer-title">Alien pressure, tactical upgrades, and one more run.</h2>
             <p data-text="trailerCopy"></p>
-            <a class="button button-primary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
+            <a class="button button-secondary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
               <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
               <span>Open Steam page</span>
             </a>
@@ -104,6 +114,16 @@
             <h2 id="features-title">Build power while the swarm closes in.</h2>
           </div>
           <div class="feature-grid" data-render="features"></div>
+        </div>
+      </section>
+
+      <section class="why-play-section" aria-labelledby="why-play-title">
+        <div class="section-shell split-layout why-play-layout">
+          <div>
+            <p class="eyebrow">Why this game?</p>
+            <h2 id="why-play-title" data-text="whyPlay.title"></h2>
+          </div>
+          <ul class="why-play-list" data-render="whyPlay"></ul>
         </div>
       </section>
 
@@ -157,16 +177,26 @@
       <section class="final-cta" id="wishlist" aria-labelledby="wishlist-title">
         <div class="section-shell final-cta-layout">
           <div>
-            <p class="eyebrow">Coming soon</p>
-            <h2 id="wishlist-title">Wishlist now and get notified at launch.</h2>
+            <p class="eyebrow" data-text="finalCta.eyebrow"></p>
+            <h2 id="wishlist-title" data-text="finalCta.title"></h2>
+            <p class="final-cta-copy" data-text="finalCta.text"></p>
           </div>
-          <a class="button button-primary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
-            <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
-            <span>Wishlist on Steam</span>
-          </a>
+          <div class="cta-row final-cta-actions">
+            <a class="button button-primary button-playtest" data-link="itch" href="https://jorge-osbaldo.itch.io/lost-galaxy-survivors" target="_blank" rel="noreferrer">
+              <span>Playtest on itch.io</span>
+            </a>
+            <a class="button button-secondary" data-link="steam" href="https://store.steampowered.com/app/4019660" target="_blank" rel="noreferrer">
+              <img class="button-icon button-icon-image" src="assets/steam-icon.png" alt="" aria-hidden="true">
+              <span>Wishlist on Steam</span>
+            </a>
+          </div>
         </div>
       </section>
     </main>
+
+    <a class="sticky-cta button button-primary button-playtest" data-link="itch" href="https://jorge-osbaldo.itch.io/lost-galaxy-survivors" target="_blank" rel="noreferrer">
+      <span>Playtest Now</span>
+    </a>
 
     <footer class="site-footer">
       <div class="section-shell footer-layout">

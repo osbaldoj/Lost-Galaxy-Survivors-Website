@@ -3,6 +3,8 @@ const data = window.gameData;
 const select = (selector, root = document) => root.querySelector(selector);
 const selectAll = (selector, root = document) => [...root.querySelectorAll(selector)];
 
+const getDataValue = (key) => key.split(".").reduce((value, part) => value?.[part], data);
+
 const createElement = (tagName, className, text) => {
   const element = document.createElement(tagName);
   if (className) element.className = className;
@@ -29,7 +31,8 @@ const createIconElement = (iconName, label) => {
 const setTextContent = () => {
   selectAll("[data-text]").forEach((element) => {
     const key = element.dataset.text;
-    if (data[key]) element.textContent = data[key];
+    const value = getDataValue(key);
+    if (typeof value === "string") element.textContent = value;
   });
 };
 
@@ -130,6 +133,19 @@ const renderHeroCallouts = () => {
   container.append(banner);
 };
 
+
+
+const renderSocialProof = () => {
+  const container = select("[data-render='socialProof']");
+  if (!container) return;
+
+  data.socialProof.forEach((line) => {
+    const item = createElement("p", "hero-proof-line", line);
+    item.prepend(createElement("span", "hero-proof-star", "★"));
+    container.append(item);
+  });
+};
+
 const renderHeroTitle = () => {
   const container = select("[data-render='heroTitle']");
 
@@ -178,6 +194,67 @@ const renderLoop = () => {
     item.append(createElement("h3", "", step.title));
     item.append(createElement("p", "", step.text));
     container.append(item);
+  });
+};
+
+const renderOverviewBullets = () => {
+  const container = select("[data-render='overviewBullets']");
+  if (!container) return;
+
+  data.overviewBullets.forEach((item) => {
+    const bullet = createElement("li", "intro-feature-item");
+    const label = createElement("strong", "intro-feature-label", item);
+    bullet.append(label);
+    container.append(bullet);
+  });
+};
+
+const renderIntroScreenshot = () => {
+  const container = select("[data-render='introScreenshot']");
+  if (!container) return;
+
+  const shots = data.screenshots.slice(0, 4);
+  if (!shots.length) return;
+
+  container.replaceChildren();
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "intro-visual-images";
+
+  const images = shots.map((shot, i) => {
+    const img = document.createElement("img");
+    img.src = shot.src;
+    img.alt = shot.alt || "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.style.opacity = i === 0 ? 1 : 0;
+    wrapper.append(img);
+    return img;
+  });
+
+  container.append(wrapper);
+
+  const caption = createElement("figcaption", "", shots[0].caption);
+  container.append(caption);
+
+  let current = 0;
+  setInterval(() => {
+    const next = (current + 1) % shots.length;
+    images[current].style.opacity = 0;
+    images[next].style.opacity = 1;
+    caption.textContent = shots[next].caption;
+    current = next;
+  }, 4500);
+};
+
+const renderWhyPlay = () => {
+  const container = select("[data-render='whyPlay']");
+  if (!container) return;
+
+  data.whyPlay.items.forEach((item) => {
+    const bullet = createElement("li", "why-play-item");
+    bullet.append(createElement("strong", "why-play-label", item));
+    container.append(bullet);
   });
 };
 
@@ -374,19 +451,42 @@ const setupGalleryKeyboard = () => {
   window.addEventListener("keydown", handleKeyDown);
 };
 
+const setupHeroVideo = () => {
+  const video = select(".hero-video");
+  if (!video) return;
+
+  const showVideo = () => video.classList.add("is-ready");
+  const hideVideo = () => video.classList.remove("is-ready");
+
+  video.addEventListener("loadeddata", showVideo, { once: true });
+  video.addEventListener("error", hideVideo);
+
+  const source = select("source", video);
+  if (source) source.addEventListener("error", hideVideo);
+
+  if (video.readyState >= 2) {
+    showVideo();
+  }
+};
+
 const init = () => {
   setTextContent();
   setLinks();
   renderHeroCallouts();
   renderHeroTitle();
+  renderSocialProof();
   renderNav();
   renderHeroPanel();
   renderFeatures();
+  renderOverviewBullets();
+  renderIntroScreenshot();
+  renderWhyPlay();
   renderLoop();
   setupScrollAnimations();
   renderGallery();
   setupGallerySwipe();
   setupGalleryKeyboard();
+  setupHeroVideo();
   renderTextList("[data-render='platforms']", data.platforms);
   renderTextList("[data-render='steamFeatures']", data.steamFeatures);
   renderTextList("[data-render='languages']", data.languages);
