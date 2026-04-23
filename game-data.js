@@ -1,5 +1,8 @@
 const gameData = {
   title: "Lost Galaxy: Survivors",
+  heroLogo: {
+    src: "assets/hero-logo.png"
+  },
   heroTitleLines: ["Lost", "Galaxy:", "Survivors"],
   studio: "After The Singularity Games",
   links: {

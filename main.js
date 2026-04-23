@@ -132,9 +132,32 @@ const renderHeroCallouts = () => {
 
 const renderHeroTitle = () => {
   const container = select("[data-render='heroTitle']");
-  data.heroTitleLines.forEach((line) => {
-    container.append(createElement("span", "", line));
-  });
+
+  const renderTextFallback = () => {
+    container.replaceChildren();
+    data.heroTitleLines.forEach((line) => {
+      container.append(createElement("span", "", line));
+    });
+  };
+
+  if (!data.heroLogo?.src) {
+    renderTextFallback();
+    return;
+  }
+
+  const label = createElement("span", "sr-only", data.title);
+  const logo = document.createElement("img");
+  logo.className = "hero-logo";
+  logo.src = data.heroLogo.src;
+  logo.alt = "";
+  logo.decoding = "async";
+  logo.hidden = true;
+  logo.addEventListener("load", () => {
+    logo.hidden = false;
+  }, { once: true });
+  logo.addEventListener("error", renderTextFallback, { once: true });
+
+  container.replaceChildren(label, logo);
 };
 
 const renderFeatures = () => {
@@ -245,6 +268,112 @@ const setActiveNav = () => {
   });
 };
 
+const setupScrollAnimations = () => {
+  const animateElements = selectAll(".feature-card, .loop-item");
+  if (animateElements.length === 0) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    rootMargin: "0px 0px -10% 0px",
+    threshold: 0.1
+  });
+
+  animateElements.forEach((el) => observer.observe(el));
+};
+
+const setupGallerySwipe = () => {
+  const viewer = select(".gallery-viewer");
+  if (!viewer) return;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let isHorizontalSwipe = false;
+  const minSwipeDistance = 50;
+  const horizontalThreshold = 10;
+
+  const handleTouchStart = (e) => {
+    touchStartX = e.touches[0].clientX;
+    isHorizontalSwipe = false;
+  };
+
+  const handleTouchMove = (e) => {
+    if (isHorizontalSwipe) {
+      e.preventDefault();
+      return;
+    }
+
+    const touchX = e.touches[0].clientX;
+    const diffX = Math.abs(touchX - touchStartX);
+    const touchY = e.touches[0].clientY;
+    
+    if (diffX > horizontalThreshold) {
+      isHorizontalSwipe = true;
+      e.preventDefault();
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) < minSwipeDistance) return;
+
+    const activeThumb = select(".gallery-thumb.is-active");
+    if (!activeThumb) return;
+
+    const thumbs = selectAll(".gallery-thumb");
+    const currentIndex = thumbs.indexOf(activeThumb);
+    let nextIndex;
+
+    if (diff > 0) {
+      nextIndex = currentIndex + 1;
+    } else {
+      nextIndex = currentIndex - 1;
+    }
+
+    if (nextIndex >= 0 && nextIndex < thumbs.length) {
+      thumbs[nextIndex].click();
+    }
+  };
+
+  viewer.addEventListener("touchstart", handleTouchStart, { passive: true });
+  viewer.addEventListener("touchmove", handleTouchMove, { passive: false });
+  viewer.addEventListener("touchend", handleTouchEnd, { passive: true });
+};
+
+const setupGalleryKeyboard = () => {
+  const handleKeyDown = (e) => {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+
+    const activeThumb = select(".gallery-thumb.is-active");
+    if (!activeThumb) return;
+
+    const thumbs = selectAll(".gallery-thumb");
+    const currentIndex = thumbs.indexOf(activeThumb);
+    let nextIndex;
+
+    if (e.key === "ArrowRight") {
+      nextIndex = currentIndex + 1;
+    } else {
+      nextIndex = currentIndex - 1;
+    }
+
+    if (nextIndex >= 0 && nextIndex < thumbs.length) {
+      e.preventDefault();
+      thumbs[nextIndex].click();
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+};
+
 const init = () => {
   setTextContent();
   setLinks();
@@ -254,7 +383,10 @@ const init = () => {
   renderHeroPanel();
   renderFeatures();
   renderLoop();
+  setupScrollAnimations();
   renderGallery();
+  setupGallerySwipe();
+  setupGalleryKeyboard();
   renderTextList("[data-render='platforms']", data.platforms);
   renderTextList("[data-render='steamFeatures']", data.steamFeatures);
   renderTextList("[data-render='languages']", data.languages);

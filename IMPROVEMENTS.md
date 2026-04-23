@@ -68,14 +68,18 @@ Created `optimize-images.sh` to address large PNG files (2-3MB each):
 3. `optimize-images.sh` - New image optimization script
 4. `IMPROVEMENTS.md` - This documentation file
 
-## Next Steps (Potential Phase 2)
+## Phase 2 Implemented
+
+1. **Staggered animations for feature cards and loop items on scroll** - Added IntersectionObserver to trigger fade-up animations with staggered delays.
+2. **Swipe gestures for gallery navigation on mobile** - Added touch event handling for horizontal swipes on the gallery viewer.
+3. **Keyboard navigation for gallery** - Added arrow key support for navigating screenshots.
+4. **Enhanced gallery accessibility** - Added `tabindex="0"` and `aria-label` to gallery viewer with `:focus-visible` styles.
+
+## Next Steps (Potential Phase 3)
 
 1. **Implement WebP with fallback** in `game-data.js` for modern browser support
-2. **Add lazy loading** for gallery images using Intersection Observer
-3. **Implement staggered animations** for feature cards and loop items on scroll
-4. **Add swipe gestures** for gallery navigation on mobile devices
-5. **Further image optimization** - consider CDN or responsive image variants
-6. **Accessibility audit** - ensure proper contrast ratios and ARIA attributes
+2. **Further image optimization** - consider CDN or responsive image variants
+3. **Accessibility audit** - ensure proper contrast ratios and ARIA attributes
 
 ## Testing Notes
 
