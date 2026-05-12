@@ -62,21 +62,6 @@ const renderHeroPanel = () => {
   panel.append(createElement("h2", "hero-module-title", data.heroPanel.title));
   panel.append(createElement("p", "hero-module-copy", data.heroPanel.copy));
 
-  if (data.playtest) {
-    const playtest = createElement("div", "hero-live-card");
-    playtest.append(createElement("span", "hero-live-card-eyebrow", data.playtest.panelEyebrow));
-    playtest.append(createElement("strong", "hero-live-card-title", data.playtest.panelTitle));
-    playtest.append(createElement("p", "hero-live-card-copy", data.playtest.panelText));
-
-    const playtestLink = createElement("a", "hero-live-card-link", data.playtest.ctaLabel);
-    playtestLink.href = data.links.itch;
-    playtestLink.target = "_blank";
-    playtestLink.rel = "noreferrer";
-    playtest.append(playtestLink);
-
-    panel.append(playtest);
-  }
-
   const statusList = createElement("div", "hero-status-list");
   data.heroPanel.rows.forEach((row) => {
     const item = createElement("article", "hero-status-row");
@@ -112,20 +97,20 @@ const renderHeroPanel = () => {
   container.append(panel);
 };
 
-const renderHeroCallouts = () => {
+const renderSteamCallout = () => {
   const container = select("[data-render='heroCallouts']");
-  if (!container || !data.playtest) return;
+  if (!container || !data.steamCallout) return;
 
-  const banner = createElement("div", "hero-live-banner");
-  banner.append(createElement("span", "hero-live-pill", "Live"));
+  const banner = createElement("div", "hero-steam-callout");
+  banner.append(createElement("span", "hero-steam-pill", "Playtest"));
 
-  const copy = createElement("div", "hero-live-copy-block");
-  copy.append(createElement("strong", "hero-live-title", data.playtest.banner));
-  copy.append(createElement("p", "hero-live-detail", data.playtest.detail));
+  const copy = createElement("div", "hero-steam-copy-block");
+  copy.append(createElement("strong", "hero-steam-title", data.steamCallout.banner));
+  copy.append(createElement("p", "hero-steam-detail", data.steamCallout.detail));
   banner.append(copy);
 
-  const link = createElement("a", "hero-live-inline-link", data.playtest.ctaLabel);
-  link.href = data.links.itch;
+  const link = createElement("a", "hero-steam-inline-link", data.steamCallout.ctaLabel);
+  link.href = data.links.steam;
   link.target = "_blank";
   link.rel = "noreferrer";
   banner.append(link);
@@ -133,15 +118,13 @@ const renderHeroCallouts = () => {
   container.append(banner);
 };
 
-
-
 const renderSocialProof = () => {
   const container = select("[data-render='socialProof']");
   if (!container) return;
 
   data.socialProof.forEach((line) => {
     const item = createElement("p", "hero-proof-line", line);
-    item.prepend(createElement("span", "hero-proof-star", "★"));
+    item.prepend(createElement("span", "hero-proof-star", "\u2605"));
     container.append(item);
   });
 };
@@ -176,6 +159,55 @@ const renderHeroTitle = () => {
   container.replaceChildren(label, logo);
 };
 
+const renderGameplayCards = () => {
+  const container = select("[data-render='gameplayCards']");
+  if (!container || !data.gameplayLoop?.cards) return;
+
+  data.gameplayLoop.cards.forEach((card, index) => {
+    const article = createElement("article", "feature-card");
+    article.append(createElement("span", "feature-index", String(index + 1).padStart(2, "0")));
+    article.append(createElement("h3", "", card.title));
+    article.append(createElement("p", "", card.text));
+    container.append(article);
+  });
+};
+
+const renderPlaytestBullets = () => {
+  const container = select("[data-render='playtestBullets']");
+  if (!container || !data.steamPlaytest?.bullets) return;
+
+  data.steamPlaytest.bullets.forEach((bullet) => {
+    const item = createElement("div", "playtest-bullet");
+    const marker = createElement("span", "playtest-bullet-marker");
+    marker.innerHTML = "&#10003;";
+    item.append(marker);
+    item.append(createElement("span", "playtest-bullet-text", bullet));
+    container.append(item);
+  });
+};
+
+const renderMediaPlaceholders = () => {
+  const container = select("[data-render='mediaPlaceholders']");
+  if (!container || !data.gameplayPreview?.placeholders) return;
+
+  data.gameplayPreview.placeholders.forEach((placeholder) => {
+    const card = createElement("div", "media-placeholder");
+
+    const badge = createElement("span", "media-placeholder-badge", "Coming soon");
+    card.append(badge);
+
+    const label = createElement("span", "media-placeholder-label", placeholder.label);
+    card.append(label);
+
+    const hint = createElement("span", "media-placeholder-hint", placeholder.fileHint);
+    card.append(hint);
+
+    const comment = document.createComment(` Replace this placeholder with ${placeholder.fileHint} `);
+    container.append(comment);
+    container.append(card);
+  });
+};
+
 const renderFeatures = () => {
   const container = select("[data-render='features']");
   data.features.forEach((feature, index) => {
@@ -187,54 +219,18 @@ const renderFeatures = () => {
   });
 };
 
-const renderOverviewBullets = () => {
-  const container = select("[data-render='overviewBullets']");
-  if (!container) return;
+const renderPressQuotes = () => {
+  const container = select("[data-render='pressQuotes']");
+  if (!container || !data.pressQuotes) return;
 
-  data.overviewBullets.forEach((item) => {
-    const bullet = createElement("li", "intro-feature-item");
-    const label = createElement("strong", "intro-feature-label", item);
-    bullet.append(label);
-    container.append(bullet);
+  data.pressQuotes.forEach((quote) => {
+    const block = document.createElement("blockquote");
+    block.className = "press-quote";
+    const p = createElement("p", "", `"${quote.text}"`);
+    const cite = createElement("cite", "", `\u2014 ${quote.source}`);
+    block.append(p, cite);
+    container.append(block);
   });
-};
-
-const renderIntroScreenshot = () => {
-  const container = select("[data-render='introScreenshot']");
-  if (!container) return;
-
-  const shots = data.screenshots.slice(0, 4);
-  if (!shots.length) return;
-
-  container.replaceChildren();
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "intro-visual-images";
-
-  const images = shots.map((shot, i) => {
-    const img = document.createElement("img");
-    img.src = shot.src;
-    img.alt = shot.alt || "";
-    img.loading = "lazy";
-    img.decoding = "async";
-    img.style.opacity = i === 0 ? 1 : 0;
-    wrapper.append(img);
-    return img;
-  });
-
-  container.append(wrapper);
-
-  const caption = createElement("figcaption", "", shots[0].caption);
-  container.append(caption);
-
-  let current = 0;
-  setInterval(() => {
-    const next = (current + 1) % shots.length;
-    images[current].style.opacity = 0;
-    images[next].style.opacity = 1;
-    caption.textContent = shots[next].caption;
-    current = next;
-  }, 4500);
 };
 
 const setActiveNav = () => {
@@ -310,31 +306,18 @@ const setupHeroVideo = () => {
   }
 };
 
-const renderPressQuotes = () => {
-  const container = select("[data-render='pressQuotes']");
-  if (!container || !data.pressQuotes) return;
-
-  data.pressQuotes.forEach((quote) => {
-    const block = document.createElement("blockquote");
-    block.className = "press-quote";
-    const p = createElement("p", "", `"${quote.text}"`);
-    const cite = createElement("cite", "", `— ${quote.source}`);
-    block.append(p, cite);
-    container.append(block);
-  });
-};
-
 const init = () => {
   setTextContent();
   setLinks();
-  renderHeroCallouts();
+  renderSteamCallout();
   renderHeroTitle();
   renderSocialProof();
   renderNav();
   renderHeroPanel();
+  renderGameplayCards();
+  renderPlaytestBullets();
+  renderMediaPlaceholders();
   renderFeatures();
-  renderOverviewBullets();
-  renderIntroScreenshot();
   setupScrollAnimations();
   setupHeroVideo();
   renderPressQuotes();
